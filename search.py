@@ -81,12 +81,21 @@ def depthFirstSearch(problem):
 
     To get started, you might want to try some of these simple commands to
     understand the search problem that is being passed in:
+    """
 
     print("Start:", problem.getStartState())
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
-    """
-    "*** YOUR CODE HERE ***"
+
+    from util import Stack
+    frontier = Stack()
+    already_explored = []
+
+    #first, test to check if initial state is already the goal stage; if yes, no path is taken, return empty array
+    if problem.isGoalStage(problem.getStartState()):
+        return []
+
+
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
