@@ -92,9 +92,29 @@ def depthFirstSearch(problem):
     already_explored = []
 
     #first, test to check if initial state is already the goal stage; if yes, no path is taken, return empty array
-    if problem.isGoalStage(problem.getStartState()):
+    if problem.isGoalState(problem.getStartState()):
         return []
 
+    #push initial state in frontier to start it off
+    frontier.push(problem.getStartState())
+
+    #keep going through all possibilites until frontier is empty (not counting repeated states)
+    while not frontier.isEmpty():
+        
+        next_node_to_explore = frontier.pop()
+        print("next node:")
+        print(next_node_to_explore)
+        already_explored.append(next_node_to_explore)
+
+        if problem.isGoalState(next_node_to_explore):
+            #todo: return solution
+            pass
+
+        #todo: doesn't work?
+        next_node_successors = next_node_to_explore.getSuccessors()
+
+        print("successors:")
+        print(next_node_successors)
 
     util.raiseNotDefined()
 
