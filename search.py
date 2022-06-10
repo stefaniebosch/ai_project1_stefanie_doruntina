@@ -83,13 +83,15 @@ def depthFirstSearch(problem):
     understand the search problem that is being passed in:
     """
 
-    print("Start:", problem.getStartState())
-    print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
-    print("Start's successors:", problem.getSuccessors(problem.getStartState()))
+    #print("Start:", problem.getStartState())
+    #print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
+    #print("Start's successors:", problem.getSuccessors(problem.getStartState()))
 
+    #use a stack because dfs uses a LIFO queue
     from util import Stack
     frontier = Stack()
     already_explored = []
+    actions_to_goal = []
 
     #first, test to check if initial state is already the goal stage; if yes, no path is taken, return empty array
     if problem.isGoalState(problem.getStartState()):
@@ -101,22 +103,30 @@ def depthFirstSearch(problem):
     #keep going through all possibilites until frontier is empty (not counting repeated states)
     while not frontier.isEmpty():
         
+        #since we're using LIFO queue, last node in is the next one to be explored, so we explore depth-first
         next_node_to_explore = frontier.pop()
-        print("next node:")
+        print("next node to explore: ")
         print(next_node_to_explore)
-        already_explored.append(next_node_to_explore)
+        actions_to_goal.append(next_node_to_explore)
 
+        #once we hit the goal, return the path to the goal
         if problem.isGoalState(next_node_to_explore):
-            #todo: return solution
-            pass
+            print("found goal state!")
+            print(actions_to_goal)
+            return actions_to_goal
 
-        #todo: doesn't work?
-        next_node_successors = next_node_to_explore.getSuccessors()
+        #since we are not expanding on already visited states
+        if next_node_to_explore not in already_explored:
+            already_explored.append(next_node_to_explore)
 
-        print("successors:")
-        print(next_node_successors)
+        #find successors of node we are currently exploring
+        next_node_successors = problem.getSuccessors(next_node_to_explore)
 
-    util.raiseNotDefined()
+        for succesor_x in next_node_successors:
+            if succesor_x not in already_explored:
+                frontier.push(succesor_x)
+            else:
+                continue
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
