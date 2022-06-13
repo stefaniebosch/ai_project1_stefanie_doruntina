@@ -102,31 +102,33 @@ def depthFirstSearch(problem):
 
     #keep going through all possibilites until frontier is empty (not counting repeated states)
     while not frontier.isEmpty():
-        
+
         #since we're using LIFO queue, last node in is the next one to be explored, so we explore depth-first
         next_node_to_explore = frontier.pop()
-        print("next node to explore: ")
-        print(next_node_to_explore)
-        actions_to_goal.append(next_node_to_explore)
-
-        #once we hit the goal, return the path to the goal
-        if problem.isGoalState(next_node_to_explore):
-            print("found goal state!")
-            print(actions_to_goal)
-            return actions_to_goal
+        print("next node to explore: " + str(next_node_to_explore))
+        #actions_to_goal.append(next_node_to_explore)
 
         #since we are not expanding on already visited states
         if next_node_to_explore not in already_explored:
             already_explored.append(next_node_to_explore)
+        else:
+            continue
+
+        #once we hit the goal, return the path to the goal
+        if problem.isGoalState(next_node_to_explore):
+            print("found goal state!: " + str(actions_to_goal))
+            return actions_to_goal
 
         #find successors of node we are currently exploring
         next_node_successors = problem.getSuccessors(next_node_to_explore)
+        print("next node successors: " + str(next_node_successors))
 
         for succesor_x in next_node_successors:
-            if succesor_x not in already_explored:
-                frontier.push(succesor_x)
-            else:
+            if succesor_x[0] in already_explored:
                 continue
+            else:
+                frontier.push(succesor_x[0])
+                actions_to_goal.append(succesor_x[1])
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
