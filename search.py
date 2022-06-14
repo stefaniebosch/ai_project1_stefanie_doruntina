@@ -125,7 +125,41 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    #use a queue because dfs uses a FIFO queue
+    from util import Queue
+    frontier = Queue()
+    already_explored = []
+    actions_to_goal = []
+
+    #first, test to check if initial state is already the goal stage; if yes, no path is taken, return empty array
+    if problem.isGoalState(problem.getStartState()):
+        return []
+
+    #push initial state and empty action list in frontier to start it off
+    frontier.push((problem.getStartState(), actions_to_goal))
+
+    #keep going through all possibilites until frontier is empty (not counting repeated states)
+    while not frontier.isEmpty():
+
+        #since we're using FIFO queue, most recent node in is the next one to be explored, so we explore breadth-first
+        next_node_to_explore, actions_to_goal = frontier.pop()
+        print("next node to explore: " + str(next_node_to_explore))
+        #actions_to_goal.append(next_node_to_explore)
+
+        #since we are not expanding on already visited states
+        if next_node_to_explore not in already_explored:
+            already_explored.append(next_node_to_explore)
+
+            #once we hit the goal, return the path to the goal
+            if problem.isGoalState(next_node_to_explore):
+                print("found goal state!: " + str(actions_to_goal))
+                return actions_to_goal
+
+            #find successors of node we are currently exploring
+            for succesor_x in problem.getSuccessors(next_node_to_explore):
+                updated_actions_to_goal = actions_to_goal + [succesor_x[1]]
+                frontier.push((succesor_x[0], updated_actions_to_goal))
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
