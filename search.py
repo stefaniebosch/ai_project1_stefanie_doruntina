@@ -105,7 +105,7 @@ def depthFirstSearch(problem):
 
         #since we're using LIFO queue, last node in is the next one to be explored, so we explore depth-first
         next_node_to_explore, actions_to_goal = frontier.pop()
-        print("next node to explore: " + str(next_node_to_explore))
+        #print("next node to explore: " + str(next_node_to_explore))
         #actions_to_goal.append(next_node_to_explore)
 
         #since we are not expanding on already visited states
@@ -144,7 +144,7 @@ def breadthFirstSearch(problem):
 
         #since we're using FIFO queue, most recent node in is the next one to be explored, so we explore breadth-first
         next_node_to_explore, actions_to_goal = frontier.pop()
-        print("next node to explore: " + str(next_node_to_explore))
+        #print("next node to explore: " + str(next_node_to_explore))
         #actions_to_goal.append(next_node_to_explore)
 
         #since we are not expanding on already visited states
@@ -181,7 +181,7 @@ def uniformCostSearch(problem):
     while not frontier.isEmpty():
 
         next_node_to_explore, actions_to_goal, current_cost = frontier.pop()
-        print("next node to explore: " + str(next_node_to_explore))
+        #print("next node to explore: " + str(next_node_to_explore))
         #actions_to_goal.append(next_node_to_explore)
 
         #since we are not expanding on already visited states
@@ -226,7 +226,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     while not frontier.isEmpty():
 
         next_node_to_explore, actions_to_goal, current_cost = frontier.pop()
-        print("next node to explore: " + str(next_node_to_explore))
+        #print("next node to explore: " + str(next_node_to_explore))
         #actions_to_goal.append(next_node_to_explore)
 
         #since we are not expanding on already visited states

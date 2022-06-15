@@ -289,7 +289,8 @@ class CornersProblem(search.SearchProblem):
         # in initializing the problem
         "*** YOUR CODE HERE ***"
         
-        self.explored_corners = [0, 0, 0, 0]
+        #a spot for each corner, 0 if not visited, 1 if visited
+        self.visited_corners = [0, 0, 0, 0]
 
     def getStartState(self):
         """
@@ -298,7 +299,7 @@ class CornersProblem(search.SearchProblem):
         """
         "*** YOUR CODE HERE ***"
         
-        return self.startingPosition
+        return (self.startingPosition, self.visited_corners)
 
     def isGoalState(self, state):
         """
@@ -307,7 +308,11 @@ class CornersProblem(search.SearchProblem):
         "*** YOUR CODE HERE ***"
         
         #only return true if all four corners have been visited
-        True if (0 not in state[1]) else False
+        if 0 not in state[1]:
+            print("found goal state supposedly: " + str(state[1]))
+            return True
+        else:
+            return False
 
     def getSuccessors(self, state):
         """
@@ -331,13 +336,21 @@ class CornersProblem(search.SearchProblem):
 
             "*** YOUR CODE HERE ***"
             
-            #code given from above
+            #code given from above, checks if it would hit a wall
             x, y = state[0]
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             hitsWall = self.walls[nextx][nexty]
+            
+            successor_explored_corners = state[1]
 
-            #todo
+            #make sure the next move would not hit any walls, so no illegal moves
+            if not hitsWall:
+                if (nextx, nexty) in self.corners:
+                    #if corner reached, mark it
+                    print("corner reached: " + str((nextx, nexty)))
+                    successor_explored_corners[self.corners.index((nextx, nexty))] = 1
+                successors.append((((nextx, nexty), successor_explored_corners), action, 1))
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
