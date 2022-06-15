@@ -206,6 +206,44 @@ def nullHeuristic(state, problem=None):
     """
     return 0
 
+def GreedyBestFirstSearch(problem, heuristic):
+    
+    from util import PriorityQueue
+    frontier = PriorityQueue()
+    already_explored = []
+    actions_to_goal = []
+
+    #first, test to check if initial state is already the goal stage; if yes, no path is taken, return empty array
+    if problem.isGoalState(problem.getStartState()):
+        return []
+
+    #push initial state, empty action list, current node cost, and priority in frontier to start it off
+    frontier.push((problem.getStartState(), actions_to_goal, 0), 0)
+
+    #keep going through all possibilites until frontier is empty (not counting repeated states)
+    while not frontier.isEmpty():
+
+        next_node_to_explore, actions_to_goal, current_cost = frontier.pop()
+        #print("next node to explore: " + str(next_node_to_explore))
+        #actions_to_goal.append(next_node_to_explore)
+
+        #since we are not expanding on already visited states
+        if next_node_to_explore not in already_explored:
+            already_explored.append(next_node_to_explore)
+
+            #once we hit the goal, return the path to the goal
+            if problem.isGoalState(next_node_to_explore):
+                print("found goal state!: " + str(actions_to_goal))
+                return actions_to_goal
+
+            #find successors of node we are currently exploring
+            #similar to A* but only uses heuristic for current node
+            for succesor_x in problem.getSuccessors(next_node_to_explore):
+                updated_actions_to_goal = actions_to_goal + [succesor_x[1]]
+                new_cost = succesor_x[2]
+                new_cost_for_heuristic = heuristic(succesor_x[0], problem)
+                frontier.push((succesor_x[0], updated_actions_to_goal, new_cost), new_cost_for_heuristic)
+
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
