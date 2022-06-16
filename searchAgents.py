@@ -337,12 +337,12 @@ class CornersProblem(search.SearchProblem):
             "*** YOUR CODE HERE ***"
             
             #code given from above, checks if it would hit a wall
-            x, y = state[0]
+            x, y = state[0][:]
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             hitsWall = self.walls[nextx][nexty]
             
-            successor_explored_corners = state[1]
+            successor_explored_corners = state[1][:]
 
             #make sure the next move would not hit any walls, so no illegal moves
             if not hitsWall:
