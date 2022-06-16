@@ -114,7 +114,7 @@ def depthFirstSearch(problem):
 
             #once we hit the goal, return the path to the goal
             if problem.isGoalState(next_node_to_explore):
-                print("found goal state!: " + str(actions_to_goal))
+                #print("found goal state!: " + str(actions_to_goal))
                 return actions_to_goal
 
             #find successors of node we are currently exploring
@@ -153,7 +153,7 @@ def breadthFirstSearch(problem):
 
             #once we hit the goal, return the path to the goal
             if problem.isGoalState(next_node_to_explore):
-                print("found goal state!: " + str(actions_to_goal))
+                #print("found goal state!: " + str(actions_to_goal))
                 return actions_to_goal
 
             #find successors of node we are currently exploring
@@ -190,7 +190,7 @@ def uniformCostSearch(problem):
 
             #once we hit the goal, return the path to the goal
             if problem.isGoalState(next_node_to_explore):
-                print("found goal state!: " + str(actions_to_goal))
+                #print("found goal state!: " + str(actions_to_goal))
                 return actions_to_goal
 
             #find successors of node we are currently exploring
@@ -233,7 +233,7 @@ def GreedyBestFirstSearch(problem, heuristic):
 
             #once we hit the goal, return the path to the goal
             if problem.isGoalState(next_node_to_explore):
-                print("found goal state!: " + str(actions_to_goal))
+                #print("found goal state!: " + str(actions_to_goal))
                 return actions_to_goal
 
             #find successors of node we are currently exploring
@@ -273,7 +273,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
 
             #once we hit the goal, return the path to the goal
             if problem.isGoalState(next_node_to_explore):
-                print("found goal state!: " + str(actions_to_goal))
+                #print("found goal state!: " + str(actions_to_goal))
                 return actions_to_goal
 
             #find successors of node we are currently exploring
