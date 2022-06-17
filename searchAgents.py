@@ -369,6 +369,8 @@ class CornersProblem(search.SearchProblem):
         return len(actions)
 
 
+#we calculate the distances to each corner that has not yet been visited, and from these we choose the corner 
+#distance that is furthest away from the current position
 def cornersHeuristic(state, problem):
     """
     A heuristic for the CornersProblem that you defined.
@@ -393,21 +395,16 @@ def cornersHeuristic(state, problem):
     if problem.isGoalState(state):
         return 0
 
-    #find all corners not yet visited
-    visited_corners = state[1][:]
-    corners_to_visit = []
-    for corner in problem.corners:
-        #print("corner: " + str(corner))
-        if corner not in visited_corners:
-            corners_to_visit.append(corner)
+    current_position = state[0]
+    visited_corners = state[1]
+    goals_distances = [] #Calculate all distances from goals - not visited corners
 
-    #add up the distances to all corners, that is the heuristic 
-    total_corner_distance = 0
-    for to_visit in corners_to_visit:
-        next_corner_distance = manhattanDistance(state[0], to_visit)
-        total_corner_distance += next_corner_distance
-    
-    return total_corner_distance
+    for corner, c in enumerate(visited_corners):
+        if c == 0: #Not visited corner
+            goals_distances.append(manhattanDistance(current_position,corners[corner]))  #Use of manhattan method 
+
+    #Worst case, should be higher than real 
+    return max(goals_distances)
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
