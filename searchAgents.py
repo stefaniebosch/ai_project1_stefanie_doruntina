@@ -468,6 +468,8 @@ class AStarFoodSearchAgent(SearchAgent):
         self.searchFunction = lambda prob: search.aStarSearch(prob, foodHeuristic)
         self.searchType = FoodSearchProblem
 
+#we calculate the distances to each food pellet that has not yet been visited, and from these we choose the food pellet 
+#distance that is furthest away from the current position
 def foodHeuristic(state, problem):
     """
     Your heuristic for the FoodSearchProblem goes here.
@@ -499,13 +501,13 @@ def foodHeuristic(state, problem):
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
 
-    list_of_distances = []
+    list_of_distances = [0]
     list_of_food = foodGrid.asList()
 
-    print("list of food: " + str(list_of_food))
+    #print("list of food: " + str(list_of_food))
 
     for food_item in list_of_food:
-        print("food item: " + str(food_item))
+        #print("food item: " + str(food_item))
         list_of_distances.append(mazeDistance(position, food_item, problem.startingGameState))
 
     return max(list_of_distances)
